@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 
 class SqlConnectionService:
     def __init__(self):
-        self._engine=create_engine(url=os.environ.get(''))
+        self._engine=create_engine(url=os.environ.get('DB_URL'))
         self._session: Session = None
 
     async def get_one(self, statement: str) -> Any:

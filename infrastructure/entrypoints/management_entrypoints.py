@@ -1,3 +1,4 @@
+from presentation.related_sites_data import RelatedSitesData
 from presentation.create_site_route_data import CreateSiteRouteData
 from presentation.create_site_data import CreateSiteData
 from presentation.user_style_sheet_data import UserStyleSheetData
@@ -29,6 +30,13 @@ async def create_api_key(
     usecase: ManagementUseCase = Depends(get_management_usecase)
 ):
     return await usecase.create_api_key(user_uuid)
+
+@router.post("/cerate_site_relation", summary="Create a new site relation")
+async def create_site_relation(
+    content: RelatedSitesData = Body(...),
+    usecase: ManagementUseCase = Depends(get_management_usecase) 
+):
+    return await usecase.create_site_relation(content)
 
 @router.post("/create_user_site_style_sheet")
 async def create_user_style_sheet(
@@ -94,6 +102,13 @@ async def list_user_style_sheets(
     usecase: ManagementUseCase = Depends(get_management_usecase)
 ):
     return await usecase.list_user_style_sheets(user_uuid)
+
+@router.get("/list_site_relations")
+async def list_site_relations(
+    site_uuid: str,
+    usecase: ManagementUseCase = Depends(get_management_usecase)
+):
+    return await usecase.list_site_relations(site_uuid)
 
 @router.patch("/update_user_site")
 async def update_site(
@@ -168,5 +183,12 @@ async def delete_style_sheet(
     usecase: ManagementUseCase = Depends(get_management_usecase)
 ):
     return await usecase.delete_style_sheet(uuid)
+
+@router.delete("/delete_site_relation")
+async def delete_site_relation(
+    relation_uuid: str,
+    usecase: ManagementUseCase = Depends(get_management_usecase)
+):
+    return await usecase.delete_site_relation(relation_uuid)
 
     

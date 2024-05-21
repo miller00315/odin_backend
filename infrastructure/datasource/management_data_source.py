@@ -4,6 +4,7 @@ from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
+from infrastructure.dtos.related_sites import RelatedSites
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 
 class ManagementDataSource(ABC):
@@ -86,6 +87,18 @@ class ManagementDataSource(ABC):
 
     @abstractmethod
     async def update_site_route_scrap(self, user_site_route_scrap: UserSiteRouteScrap)-> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def create_site_relation(self, content: RelatedSites) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def list_site_relations(self, site_uuid: str) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def delete_site_relation(self, relation_uuid: str) -> None:
         raise NotImplementedError()
 
     

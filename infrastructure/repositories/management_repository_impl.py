@@ -4,6 +4,8 @@ from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
+from infrastructure.dtos.related_sites import RelatedSites
+from presentation.related_sites_data import RelatedSitesData
 from presentation.create_site_route_data import CreateSiteRouteData
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 
@@ -69,3 +71,15 @@ class ManagementRepositoryImpl(ManagementRepository):
     
     async def update_site_style_sheet(self, user_site_style_sheet: UserStyleSheet) -> object:
         return await self.managementDataSource.update_site_style_sheet(user_site_style_sheet)
+    
+    async def create_site_relation(self, content: RelatedSitesData) -> object:
+        return await self.managementDataSource.create_site_relation(RelatedSites.fromEntity(
+            uuid_data=None,
+            related_site_data=content
+        ))
+    
+    async def list_site_relations(self, site_uuid: str) -> object:
+        return await self.managementDataSource.list_site_relations(site_uuid)
+    
+    async def delete_site_relation(self, relation_uuid: str) -> None:
+        return await self.managementDataSource.delete_site_relation(relation_uuid)

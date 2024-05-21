@@ -4,6 +4,7 @@ from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
+from presentation.related_sites_data import RelatedSitesData
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 from presentation.create_site_route_data import CreateSiteRouteData
 
@@ -20,6 +21,18 @@ class ManagementRepository(ABC):
     async def list_sites(self, user_uuid: str) -> list[object]:
         raise NotImplementedError()
     
+    @abstractmethod
+    async def create_site_relation(self, content: RelatedSitesData) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def list_site_relations(self, site_uuid: str) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def delete_site_relation(self, relation_uuid: str) -> None:
+        raise NotImplementedError()
+
     @abstractmethod
     async def list_routes(self, user_site_uuid: str) -> object:
         raise NotImplementedError()

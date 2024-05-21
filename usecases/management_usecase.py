@@ -3,6 +3,7 @@ from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
+from presentation.related_sites_data import RelatedSitesData
 from presentation.create_site_route_data import CreateSiteRouteData
 from presentation.create_site_data import CreateSiteData
 from presentation.user_style_sheet_data import UserStyleSheetData
@@ -23,6 +24,15 @@ class ManagementUseCase:
     
     async def list_routes(self, user_site_uuid: str) -> object:
         return await self.managementRepository.list_routes(user_site_uuid)
+    
+    async def create_site_relation(self, content: RelatedSitesData) -> object:
+        return await self.managementRepository.create_site_relation(content)
+    
+    async def list_site_relations(self, site_uuid: str) -> object:
+        return await self.managementRepository.list_site_relations(site_uuid)
+    
+    async def delete_site_relation(self, relation_uuid: str) -> None:
+        return await self.managementRepository.delete_site_relation(relation_uuid)
     
     async def list_sites(self, user_uuid: str) -> list[object]:
         return await self.managementRepository.list_sites(user_uuid)
@@ -62,7 +72,6 @@ class ManagementUseCase:
     async def delete_style_sheet(self, uuid: str) -> None:
         await self.managementRepository.delete_style_sheet(uuid)
 
-    
     async def update_site(
         self,
         user_site_uuid: str,

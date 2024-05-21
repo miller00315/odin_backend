@@ -14,7 +14,7 @@ class RunService():
     assistant: OpenAI
 
     def __init__(self) -> None:
-        self.assistant = OpenAI(api_key=os.environ.getenv('OPEN_AI_KEY'))
+        self.assistant = OpenAI(api_key=os.environ.get('OPEN_AI_KEY'))
 
         self.connection = SqlConnectionService()
 

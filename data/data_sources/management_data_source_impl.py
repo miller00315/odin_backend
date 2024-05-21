@@ -7,6 +7,7 @@ from data.services.user_site_route_scrap import UserSiteScrapService
 import uuid
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
 from infrastructure.dtos.user_style_sheet import UserStyleSheet
+from infrastructure.dtos.related_sites import RelatedSites
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 
 class ManagementeDataSourceImpl(ManagementDataSource):
@@ -241,4 +242,34 @@ class ManagementeDataSourceImpl(ManagementDataSource):
         await self.connection.update(statement)
 
         return {"data": user_site_route_scrap.uuid}
+    
+    
+    async def create_site_relation(self, content: RelatedSites) -> object:
+        await self.connection.insert([content])
+
+        return {"relation_uuid" : content.uuid}
+    
+    async def list_site_relations(self, site_uuid: str) -> object:
+        statement = f"""
+            SELECT uuid, user_site_primary_uuid, user_site_secondary_uuid, relation_description, created_at 
+            FROM related_sites
+            WHERE (user_site_primary_uuid = '{site_uuid}') OR (user_site_secondary_uuid = '{site_uuid}')
+            """
+        
+        relations = await self.connection.get(statement)
+
+        return {"data": [{
+                "uuid": item[0],
+                "user_site_primary_uuid": item[1],
+                "user_site_secondary_uuid": item[2],
+                "relation_description": item[3],
+                "created_at": item[4]
+            } for item in relations]
+        }
+    
+    async def delete_site_relation(self, relation_uuid: str) -> None:
+        statement = f"DELETE FROM related_sites WHERE uuid='{relation_uuid}'"
+
+        await self.connection.update(statement)
+
 

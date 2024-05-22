@@ -112,8 +112,10 @@ class ManagementeDataSourceImpl(ManagementDataSource):
     
     async def list_scrap_by_user_site_route (self, user_site_route_uuid: str) -> object:
         statement = f"""
-            SELECT uuid, item_id, tag, css_class, function_on_the_page, parent_uuid,
-                title, content, scrap_description, user_site_route_uuid, created_at
+            SELECT uuid, item_id, tag, css_class, 
+                function_on_the_page, parent_uuid,
+                title, content, scrap_description, 
+                user_site_route_uuid, created_at
             FROM user_site_route_scrap WHERE user_site_route_uuid='{user_site_route_uuid}'"""
         
         user_site_route_scraps = await self.connection.get(str(statement))

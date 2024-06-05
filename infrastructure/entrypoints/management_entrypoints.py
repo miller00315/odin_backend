@@ -1,3 +1,4 @@
+from presentation.external_link_data import ExternalLinkData
 from presentation.related_sites_data import RelatedSitesData
 from presentation.create_site_route_data import CreateSiteRouteData
 from presentation.create_site_data import CreateSiteData
@@ -52,6 +53,14 @@ async def scrap_user_site_route(
     usecase: ManagementUseCase = Depends(get_management_usecase)
 ):
     return await usecase.scrap_user_site_route(content)
+
+
+@router.post("/create_external_link", summary="Creat a external link")
+async def create_external_link(
+    content: ExternalLinkData,
+    usecase: ManagementUseCase = Depends(get_management_usecase)   
+):
+    return await usecase.create_external_link(content)
 
 @router.get("/list_sites/", summary="This is the endpoint where user lie avaliable sites")
 async def list_ai(
@@ -109,6 +118,14 @@ async def list_site_relations(
     usecase: ManagementUseCase = Depends(get_management_usecase)
 ):
     return await usecase.list_site_relations(site_uuid)
+
+@router.get("/list_external_links_by_site_uuid")
+async def list_external_links_by_site_uuid(
+    site_uuid: str,
+    usecase: ManagementUseCase = Depends(get_management_usecase)
+):
+    return await usecase.list_external_links_by_site_uuid(site_uuid)
+
 
 @router.patch("/update_user_site")
 async def update_site(
@@ -190,5 +207,12 @@ async def delete_site_relation(
     usecase: ManagementUseCase = Depends(get_management_usecase)
 ):
     return await usecase.delete_site_relation(relation_uuid)
+
+@router.delete("/delete_external_link")
+async def delete_external_link(
+    external_link_uuid: str,
+    usecase: ManagementUseCase = Depends(get_management_usecase)
+):
+    return await usecase.delete_external_link(external_link_uuid)
 
     

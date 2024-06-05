@@ -3,6 +3,7 @@ from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
+from presentation.external_link_data import ExternalLinkData
 from presentation.related_sites_data import RelatedSitesData
 from presentation.create_site_route_data import CreateSiteRouteData
 from presentation.create_site_data import CreateSiteData
@@ -107,6 +108,15 @@ class ManagementUseCase:
         return await self.managementRepository.update_site_route_scrap(
                 UserSiteRouteScrap.from_entity(user_site_route_scrap_data, user_site_route_scrap_uuid)
             )
+    
+    async def create_external_link(self, content: ExternalLinkData) -> object:
+        return await self.managementRepository.create_external_link(content)
+    
+    async def list_external_links_by_site_uuid(self, site_uuid: str) -> object:
+        return await self.managementRepository.list_external_links_by_site_uuid(site_uuid)
+    
+    async def delete_external_link(self, external_link_uuid: str) -> None:
+        return self.managementRepository.delete_external_link(external_link_uuid)
 
     
     

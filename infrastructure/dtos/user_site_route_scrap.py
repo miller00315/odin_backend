@@ -12,12 +12,12 @@ class UserSiteRouteScrap(SQLModel, table=True):
     uuid: str
     scrap_description: str
     tag: str
-    item_id: Optional[str]
-    css_class: Optional[str]
-    function_on_the_page: Optional[str]
-    parent_uuid: Optional[str]
-    title: Optional[str]
-    content: Optional[str]
+    item_id: Optional[str] = None
+    css_class: Optional[str] = None
+    function_on_the_page: Optional[str] = None
+    parent_uuid: Optional[str] = None
+    title: Optional[str] = None
+    content: Optional[str] = None
     user_site_route_uuid: str
     created_at: Optional[datetime] = Field(default=datetime.now(dt.UTC))
     

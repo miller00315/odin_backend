@@ -10,10 +10,10 @@ class UserStyleSheet(SQLModel, table=True):
 
     id: Optional[int] = Field(default=None, primary_key=True)
     uuid: str
-    style_sheet_url: Optional[str]
+    style_sheet_url: Optional[str] = None
     style_sheet_name: str
-    style_sheet_description: Optional[str]
-    style_sheet_content: Optional[str]
+    style_sheet_description: Optional[str] = None
+    style_sheet_content: Optional[str] = None
     user_site_uuid: str
     created_at: Optional[datetime] = Field(default=datetime.now(dt.UTC))
 

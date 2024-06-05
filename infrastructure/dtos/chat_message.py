@@ -12,9 +12,9 @@ class ChatMessage(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     uuid: str
     chat_uuid: str
-    device_origin: Optional[str]
-    tool_call: Optional[str]
-    content: Optional[str]
+    device_origin: Optional[str] = None
+    tool_call: Optional[str] = None
+    content: Optional[str] = None
     chat_role: str
     created_at: Optional[datetime] = Field(default=datetime.now(dt.UTC))
 

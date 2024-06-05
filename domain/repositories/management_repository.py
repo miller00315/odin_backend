@@ -4,6 +4,8 @@ from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
+from infrastructure.dtos.external_link import ExternalLink
+from presentation.external_link_data import ExternalLinkData
 from presentation.related_sites_data import RelatedSitesData
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 from presentation.create_site_route_data import CreateSiteRouteData
@@ -87,4 +89,16 @@ class ManagementRepository(ABC):
 
     @abstractmethod
     async def update_site_route_scrap(self, user_site_route_scrap: UserSiteRouteScrap)-> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def create_external_link(self, content: ExternalLinkData) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def list_external_links_by_site_uuid(self, site_uuid: str) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def delete_external_link(self, external_link_uuid: str) -> None:
         raise NotImplementedError()

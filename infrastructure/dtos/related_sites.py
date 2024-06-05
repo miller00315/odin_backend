@@ -34,8 +34,8 @@ class RelatedSites(SQLModel, table=True):
         ):
         
         return RelatedSites(
-            uuid= uuid_data if uuid_data else uuid.uuid4(),
-            user_site_primary_uuid=related_site_data.user_site_primary_uuid,
-            user_site_secondary_uuid=related_site_data.user_site_secondary_uuid,
-            relation_description=related_site_data.relation_description
+            uuid = uuid_data if uuid_data else uuid.uuid4(),
+            user_site_primary_uuid = related_site_data.user_site_primary_uuid,
+            user_site_secondary_uuid = related_site_data.user_site_secondary_uuid,
+            relation_description = related_site_data.relation_description
         )

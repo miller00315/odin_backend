@@ -5,6 +5,7 @@ from infrastructure.dtos.user_site import UserSite
 from infrastructure.dtos.user_site_route import UserSiteRoute
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
 from infrastructure.dtos.related_sites import RelatedSites
+from infrastructure.dtos.external_link import ExternalLink
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 
 class ManagementDataSource(ABC):
@@ -100,5 +101,16 @@ class ManagementDataSource(ABC):
     @abstractmethod
     async def delete_site_relation(self, relation_uuid: str) -> None:
         raise NotImplementedError()
-
+    
+    @abstractmethod
+    async def create_external_link(self, content: ExternalLink) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def list_external_links_by_site_uuid(self, site_uuid: str) -> object:
+        raise NotImplementedError()
+    
+    @abstractmethod
+    async def delete_external_link(self, external_link_uuid: str) -> None:
+        raise NotImplementedError()
     

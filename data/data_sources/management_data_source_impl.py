@@ -8,6 +8,7 @@ import uuid
 from infrastructure.dtos.user_site_route_scrap import UserSiteRouteScrap
 from infrastructure.dtos.user_style_sheet import UserStyleSheet
 from infrastructure.dtos.related_sites import RelatedSites
+from infrastructure.dtos.external_link import ExternalLink
 from presentation.user_site_scrap_data import UserSiteScrapDataBody
 
 class ManagementeDataSourceImpl(ManagementDataSource):
@@ -112,26 +113,23 @@ class ManagementeDataSourceImpl(ManagementDataSource):
     
     async def list_scrap_by_user_site_route (self, user_site_route_uuid: str) -> object:
         statement = f"""
-            SELECT uuid, item_id, tag, css_class, 
-                function_on_the_page, parent_uuid,
-                title, content, scrap_description, 
-                user_site_route_uuid, created_at
+            SELECT uuid, tag, css_class, function_on_the_page, parent_uuid,
+                title, content, scrap_description, user_site_route_uuid, created_at
             FROM user_site_route_scrap WHERE user_site_route_uuid='{user_site_route_uuid}'"""
         
         user_site_route_scraps = await self.connection.get(str(statement))
 
         return  {'data': [{
                 'uuid': item[0],
-                'item_id': item[1],
-                'tag': item[2],
-                'css_class': item[3],
-                'function_on_the_page': item[4],
-                'parent_uuid': item[5],
-                'title': item[6],
-                'content': item[7],
-                'scrap_description': item[8],
-                'user_site_route_uuid': item[9],
-                'created_at': item[10]
+                'tag': item[1],
+                'css_class': item[2],
+                'function_on_the_page': item[3],
+                'parent_uuid': item[4],
+                'title': item[5],
+                'content': item[6],
+                'scrap_description': item[7],
+                'user_site_route_uuid': item[8],
+                'created_at': item[9]
             } 
             for item in user_site_route_scraps]}
     
@@ -272,6 +270,32 @@ class ManagementeDataSourceImpl(ManagementDataSource):
     
     async def delete_site_relation(self, relation_uuid: str) -> None:
         statement = f"DELETE FROM related_sites WHERE uuid='{relation_uuid}'"
+
+        await self.connection.update(statement)
+
+    async def create_external_link(self, content: ExternalLink) -> object:
+        await self.connection.insert([content])
+
+        return { "external_link_uuid": content.uuid }
+    
+ 
+    async def list_external_links_by_site_uuid(self, site_uuid: str) -> object:
+        statement = f"""
+            SELECT uuid, link_url, link_description 
+            FROM external_link
+            WHERE user_site_uuid='{site_uuid}'"""
+
+        external_links = await self.connection.get(statement)
+
+        return {"data": [{
+                'uuid': external_link[0],
+                'link_url': external_link[1],
+                'link_description': external_link[2]
+            } for external_link in external_links]
+        }
+   
+    async def delete_external_link(self, external_link_uuid: str) -> None:
+        statement = f"DELETE FROM external_link WHERE uuid='{external_link_uuid}'"
 
         await self.connection.update(statement)
 

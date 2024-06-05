@@ -32,7 +32,7 @@ class ChatDataSourceImpl(ChatDataSource):
             'data': {
                 'id': chat_message.uuid, 
                 'chat_uuid': chat_message.chat_uuid, 
-                'tool_call': chat_message.tool_call, 
+                'toll_call': chat_message.tool_call, 
                 'message': chat_message.content, 
                 'role': chat_message.chat_role,
                 'device_origin': chat_message.device_origin,
@@ -156,7 +156,7 @@ class ChatDataSourceImpl(ChatDataSource):
         messages = [{
             'uuid': message[0], 
             'chat_uuid': message[1], 
-            'tool_call': ast.literal_eval(message[2]) if message[2] else None, 
+            'toll_call': ast.literal_eval(message[2]) if message[2] else None, 
             'message': message[3], 
             'role': message[4],
             'device_origin': message[5],
@@ -184,7 +184,7 @@ class ChatDataSourceImpl(ChatDataSource):
             messages = [{
                 'uuid': message[0], 
                 'chat_uuid': message[1], 
-                'tool_call': ast.literal_eval(message[2]) if message[2] else None, 
+                'toll_call': ast.literal_eval(message[2]) if message[2] else None, 
                 'message': message[3], 
                 'role': message[4],
                 'device_origin': message[5],

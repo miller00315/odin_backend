@@ -114,7 +114,7 @@ class ManagementeDataSourceImpl(ManagementDataSource):
     
     async def list_scrap_by_user_site_route (self, user_site_route_uuid: str) -> object:
         statement = f"""
-            SELECT uuid, tag, css_class, function_on_the_page, parent_uuid,
+            SELECT uuid, item_id, tag, css_class, function_on_the_page, parent_uuid,
                 title, content, scrap_description, user_site_route_uuid, created_at
             FROM user_site_route_scrap WHERE user_site_route_uuid='{user_site_route_uuid}'"""
         
@@ -122,15 +122,16 @@ class ManagementeDataSourceImpl(ManagementDataSource):
 
         return  {'data': [{
                 'uuid': item[0],
-                'tag': item[1],
-                'css_class': item[2],
-                'function_on_the_page': item[3],
-                'parent_uuid': item[4],
-                'title': item[5],
-                'content': item[6],
-                'scrap_description': item[7],
-                'user_site_route_uuid': item[8],
-                'created_at': item[9]
+                'item_id': item[1],
+                'tag': item[3],
+                'css_class': item[4],
+                'function_on_the_page': item[4],
+                'parent_uuid': item[5],
+                'title': item[6],
+                'content': item[7],
+                'scrap_description': item[8],
+                'user_site_route_uuid': item[9],
+                'created_at': item[10]
             } 
             for item in user_site_route_scraps]}
     

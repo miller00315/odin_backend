@@ -1,3 +1,4 @@
+from http.client import HTTPException
 from infrastructure.datasource.management_data_source import ManagementDataSource
 from data.services.sql_connection_service import SqlConnectionService
 from infrastructure.dtos.user_site import UserSite
@@ -146,7 +147,7 @@ class ManagementeDataSourceImpl(ManagementDataSource):
                     }
                 }
         
-        return {'failed': 'route not found'}
+        raise HTTPException(status_code=404, detail="route not found")
     
     async def delete_site_route(self, uuid: str) -> None:
         statement = f"DELETE FROM user_site_route WHERE uuid='{uuid}'"

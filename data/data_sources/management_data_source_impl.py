@@ -1,4 +1,4 @@
-from http.client import HTTPException
+from fastapi import  HTTPException
 from infrastructure.datasource.management_data_source import ManagementDataSource
 from data.services.sql_connection_service import SqlConnectionService
 from infrastructure.dtos.user_site import UserSite
